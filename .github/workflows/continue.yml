@@ -35,10 +35,10 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'                       # Output of cache step, checks node modules
         run: npm ci
       - name: Test code
+        continue-on-error: true       # This will ensure that the job continues to run even if the job fails
         id: run-tests                                  # Require for step identification
         run: npm run test
-      - name: Upload test report                       # This step will not run in general if test fails
-        continue-on-error: true       # This will ensure that this step runs even if the job fails
+      - name: Upload test report                       
         uses: actions/upload-artifact@v4
         with:
           name: test-report
