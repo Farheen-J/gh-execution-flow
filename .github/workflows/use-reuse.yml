@@ -72,6 +72,14 @@ jobs:
     uses:  ./.github/workflows/reusable.yml                 # Different from actions because we use entire workflow
     with:
       artifact-name: dist-files
+    #secrets:
+      #random-secret: ${{ secrets.some-secret }}
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Print deploy output
+        run: echo "${{ needs.deploy.outputs.result }}"
   report:                                                   #Runs only when any other job fails 
     needs: [lint, deploy]                                   #Only if will not be sufficient because it has to wait for all the jobs to finish
     if: failure()
