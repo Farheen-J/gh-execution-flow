@@ -8,6 +8,14 @@ jobs:
       matrix:
         node-version: [12, 16, 18, 20]
         operating-system: [ubuntu-latest, windows-latest]     # Variables named by user
+        include:                        # Allows us to add standalone/specific combination
+          - node-version: 18
+            operating-system: ubuntu-latest
+        exclude:                        # Allows us to remove standalone/specific combination
+          - node-version: 12
+            operating-system: windows-latest  
+          - node-version: 12
+            operating-system: ubuntu-latest         
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Get Code
