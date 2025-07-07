@@ -1,0 +1,8 @@
+name: Reusable Deploy
+on: workflow_dispatch                       # Here we can make it callable from another workflow
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Information
+        runs: echo " Deploying & Uploading"
