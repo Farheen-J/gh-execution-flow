@@ -13,9 +13,10 @@ jobs:
         id: cache
         uses: actions/cache@v4
         with:
-          path: node_modules
+          path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'                       # Output of cache step, checks node modules
         run: npm ci
       - name: Lint code
         run: npm run lint
@@ -31,6 +32,7 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'                       # Output of cache step, checks node modules
         run: npm ci
       - name: Test code
         id: run-tests                                  # Require for step identification
@@ -55,6 +57,7 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'                       # Output of cache step, checks node modules
         run: npm ci
       - name: Build website
         id: build-website
