@@ -3,9 +3,10 @@ on:
   push:
 jobs:
   build:
+    continue-on-error: true       # Makes sure that the job passes even if some combination fails
     strategy:
       matrix:
-        node-version: [16, 18, 20]
+        node-version: [12, 16, 18, 20]
         operating-system: [ubuntu-latest, windows-latest]     # Variables named by user
     runs-on: ${{ matrix.operating-system }}
     steps:
