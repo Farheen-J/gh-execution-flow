@@ -1,9 +1,21 @@
 name: Reusable Deploy
-on: workflow_call         # Here we can make it callable from another workflow
-                          # workflow_dispatch : Manually running a workflow
+on: 
+  workflow_call:         # Here we can make it callable from another workflow, workflow_dispatch : Manually running a workflow
+    inputs:
+      artifact-name:
+        description: The name of the deployable artifact files
+        required: false                           # Mandatory or not
+        default: dist
+        type: string
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get code
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}                    #Injected from caller workflow, inputs is a context object
+      - name: List files
+        run: ls 
       - name: Output Information
         run: echo " Deploying & Uploading"

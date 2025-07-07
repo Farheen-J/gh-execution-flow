@@ -70,6 +70,8 @@ jobs:
   deploy:
     needs: build
     uses:  ./.github/workflows/reusable.yml                 # Different from actions because we use entire workflow
+    with:
+      artifact-name: dist-files
   report:                                                   #Runs only when any other job fails 
     needs: [lint, deploy]                                   #Only if will not be sufficient because it has to wait for all the jobs to finish
     if: failure()
