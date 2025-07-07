@@ -5,17 +5,18 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [12, 14, 16]
+        node-version: [16, 18, 20]
         operating-system: [ubuntu-latest, windows-latest]     # Variables named by user
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Get Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install NodeJS
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
-        uses: npm ci
+        run: npm ci
       - name: Build Project
-        uses: npm run build
+        run: npm run build
+        
