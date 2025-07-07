@@ -1,5 +1,6 @@
 name: Reusable Deploy
-on: workflow_dispatch                       # Here we can make it callable from another workflow
+on: workflow_call         # Here we can make it callable from another workflow
+                          # workflow_dispatch : Manually running a workflow
 jobs:
   deploy:
     runs-on: ubuntu-latest
